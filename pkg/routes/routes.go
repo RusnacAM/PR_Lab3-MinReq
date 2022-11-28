@@ -11,8 +11,8 @@ import (
 var RegisterRoutes = func(router *mux.Router) {
 	router.HandleFunc("/datastore", getAll).Methods("GET")
 	router.HandleFunc("/datastore/{id}", getByID).Methods("GET")
-	router.HandleFunc("/datastore", create).Methods("POST")
-	router.HandleFunc("/datastore/{id}", update).Methods("PUT")
+	router.HandleFunc("/datastore", post).Methods("POST")
+	router.HandleFunc("/datastore/{id}", put).Methods("PUT")
 	router.HandleFunc("/datastore/{id}", deleteByID).Methods("DELETE")
 }
 
@@ -40,7 +40,7 @@ func getByID(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func create(w http.ResponseWriter, r *http.Request) {
+func post(w http.ResponseWriter, r *http.Request) {
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -60,7 +60,7 @@ func create(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func update(w http.ResponseWriter, r *http.Request) {
+func put(w http.ResponseWriter, r *http.Request) {
 	var vars = mux.Vars(r)
 	var ID = vars["id"]
 
